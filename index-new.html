@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Word Generator - Jungle Edition</title>
+  <style>
+    html, body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: 
+        linear-gradient(270deg, rgba(255, 214, 165, 0.4), rgba(197, 225, 255, 0.4), rgba(255, 255, 200, 0.4)),
+        url('https://images.unsplash.com/photo-1608889175119-9f987bd3a8d1?auto=format&fit=crop&w=1950&q=80');
+      background-size: 200% 200%, cover;
+      background-repeat: no-repeat, no-repeat;
+      background-position: 0% 50%, center;
+      animation: waveMotion 12s ease-in-out infinite;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @keyframes waveMotion {
+      0% { background-position: 0% 50%, center; }
+      50% { background-position: 100% 50%, center; }
+      100% { background-position: 0% 50%, center; }
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .generator {
+      margin-top: 30px;
+    }
+
+    input[type="number"] {
+      padding: 8px;
+      width: 60px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      text-align: center;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #388e3c;
+    }
+
+    .output {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 10px;
+      min-height: 60px;
+      font-size: 18px;
+    }
+
+    .instructions {
+      margin-top: 30px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌴 Jungle Random Word Generator 🐾</h1>
+  <div class="instructions">
+    <p>Welcome to the Jungle! 🦁🐘🦜<br>
+    Enter a number between 1 and 50 to generate that many wild words.<br>
+    Press Enter or click the button to start your adventure!</p>
+  </div>
+
+  <div class="generator">
+    <input type="number" id="wordCount" min="1" max="50" placeholder="5">
+    <button onclick="generateWords()">🎲 Generate Words</button>
+    <button onclick="copyToClipboard()">📋 Copy Words</button>
+  </div>
+
+  <div class="output" id="wordOutput">Words will appear here...</div>
+
+  <script>
+    const words = [
+      "🌳 tree", "🌊 ocean", "☁️ cloud", "📖 book", "☀️ sun", "💤 dream", "💻 code", "⛈️ storm", "🔥 fire", "🪨 rock",
+      "💡 light", "🖱️ mouse", "👻 ghost", "🏞️ river", "💨 wind", "😊 smile", "⭐ star", "❤️ heart", "🌌 sky", "🛤️ path",
+      "🎮 game", "🍎 fruit", "💭 idea", "⚡ power", "🏠 house", "🌙 moon", "🌍 earth", "🐦 bird", "🌸 flower", "❄️ snow",
+      "🌊 wave", "🔊 sound", "🚀 space", "🌫️ dust", "🥇 gold", "🎤 voice", "🌩️ lightning", "🔁 echo", "🌁 fog", "🌾 field",
+      "🪨 stone", "🔍 glass", "🗺️ map", "⭕ circle", "⏳ time", "🚪 gate", "🔥 flame", "📝 note", "🎵 song", "🧠 truth",
+      "🌴 jungle", "🐅 tiger", "🍌 banana", "🐒 monkey", "🐆 panther", "🦁 lion", "🦜 toucan", "🐘 elephant", "🐍 python", "🐆 jaguar",
+      "🌱 roots", "🌿 canopy", "🪴 vines", "🍃 leaves", "💧 puddle", "🎋 bamboo", "👣 tribe", "🦏 rhino", "🌧️ rain", "🦗 cricket",
+      "🐵 chimp", "🦎 lizard", "📚 junglebook", "🥭 mango", "🪵 mud", "⚡ thunder", "🏕️ shelter", "🐛 insect", "🦜 parrot", "🌿 herb",
+      "🚶 trail", "🐺 howl", "🐞 beetle", "🍇 grapevine", "🦴 claw", "🌾 stalk", "🌳 bush", "🐯 growl", "🐛 crawl", "🍯 nectar"
+    ];
+
+    function generateWords() {
+      const count = parseInt(document.getElementById("wordCount").value) || 1;
+      const output = [];
+      for (let i = 0; i < count && i < 50; i++) {
+        const randomWord = words[Math.floor(Math.random() * words.length)];
+        output.push(randomWord);
+      }
+      document.getElementById("wordOutput").innerHTML = output.join("<br>");
+    }
+
+    function copyToClipboard() {
+      const outputText = document.getElementById("wordOutput").innerText;
+      if (!outputText || outputText.includes("Words will appear here")) return;
+      navigator.clipboard.writeText(outputText)
+        .then(() => alert("Copied to clipboard!"))
+        .catch(err => alert("Failed to copy: " + err));
+    }
+
+    document.getElementById("wordCount").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        generateWords();
+      }
+    });
+  </script>
+</body>
+</html>
